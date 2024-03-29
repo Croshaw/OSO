@@ -9,6 +9,6 @@ case $choose in
 		dolphin
 		;;
 	3 )
-		echo "Open a links"
+		firefox
 		;;
 esac
