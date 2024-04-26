@@ -1,10 +1,13 @@
 #!/bin/bash
 p_count=0
 p_avg=0
+if [[ -e "script5.temp.txt" ]]; then
+	rm script5.temp.txt
+fi
 sort -t":" -k2 script4.temp.txt | while IFS=: read -r process_info; do
 	ppid=$(echo $process_info | grep -oP 'Parent_ProcessID=\K[0-9]+')
 	art=$(echo $process_info | grep -oP 'Average_Running_Time=\K[^:]+')
-	if [[ $ppid -eq $cur_ppid ]]; then
+	if [ -n "$cur_ppid" ] && [ $ppid -eq $cur_ppid ]; then
 		p_count=$(echo "$p_count+1" | bc)
 		p_avg=$(echo "scale=2; $p_avg+$art" | bc)
 	else
@@ -14,11 +17,11 @@ sort -t":" -k2 script4.temp.txt | while IFS=: read -r process_info; do
 			else
 				p_avg="N/A"
 			fi
-			echo "Average_Running_Children_of_ParentID=$cur_ppid is $p_avg"
+			echo "Average_Running_Children_of_ParentID=$cur_ppid is $p_avg" >> script5.temp.txt
 		fi
 		p_count=1
 		p_avg=$art
 		cur_ppid=$ppid	
 	fi
+	echo "$process_info" >> script5.temp.txt
 done
-

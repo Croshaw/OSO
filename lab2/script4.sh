@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ -e script4.temp1.txt ]]; then
-rm script4.temp1.txt
+	rm script4.temp1.txt
 fi
 
 for dir in /proc/[0-9]*; do
