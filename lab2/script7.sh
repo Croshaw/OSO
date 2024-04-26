@@ -11,6 +11,7 @@ for dir in /proc/[0-9]*; do
 	pid=$(basename $dir)
 	read_b=$(awk '/read_bytes:/{print $2}' "$dir/io")
 	if [[ -n "read_bytes[$pid]" ]]; then
+		#echo "old:${read_bytes[$pid]}  new:$read_b"
 		read_bytes[$pid]=$(echo "$read_b - ${read_bytes[$pid]}" | bc)
 	else
 		read_bytes[$pid]=$read_b
