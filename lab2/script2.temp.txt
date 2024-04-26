@@ -1,0 +1,16 @@
+    589 /usr/bin/startplasma-x11
+    596 /usr/bin/dbus-broker-launch --scope user
+    657 /usr/bin/kded6
+    658 /usr/bin/ksmserver
+    659 /usr/bin/kwin_x11 --replace
+    701 /usr/bin/plasmashell --no-respawn
+    730 /usr/bin/gmenudbusmenuproxy
+    734 /usr/bin/xembedsniproxy
+    776 /usr/bin/pipewire
+    778 /usr/bin/wireplumber
+    875 /usr/bin/vmtoolsd -n vmusr
+    899 /usr/bin/kaccess
+    932 /usr/bin/dolphin -session 10d6d5c473000171412096600000006590005_1714121031_214682
+    974 /usr/bin/dbus-broker-launch --config-file=/usr/share/defaults/at-spi2/accessibility.conf --scope user
+   1319 /usr/bin/alacritty
+   1655 /bin/bash ./script2.sh croshaw usr/bin
