@@ -6,19 +6,30 @@ check_cpu_usage() {
 	echo $cpu_usage
 }
 
-pids=$(pgrep -d',' -f "$1" | tr ',' '\n' | xargs ps -o pid= --sort=start_time)
-firstPid = echo $pids | head -n 1
+pids=$(pgrep -d',' -f "script4.temp.sh" | tr ',' '\n' | xargs ps -o pid= --sort=start_time)
+firstPid=$(echo $pids | awk '{print $1}')
+priority=0
+modifier=1
 
-while true do
+while true; do
+	read line
+	if [ "$line" == "kill" ]; then
+		echo "Kill 3 proc"
+	fi
 	if ps -p "$firstPid" > /dev/null; then
-		if [[ $(echo "$(check_cpu_usage $firstPid) > 10" | bc -l) ]]; then
-			echo "> 10"
-			renice -n 19 -p $firstPid
+		curCPU=$(check_cpu_usage $firstPid)
+		if [[ $(echo "$curCPU > 10" | bc -l) -eq 1 ]]; then
+			echo "$curCPU > 10"
+			((priority += modifier))
+			#$priority=$(($priority+$modifier))
+			#$priority=$(echo "$priority+$modifier" | bc -l)
 		else
-			echo "< 10"
-			renice -n 0 -p $firstPid
+			echo "$curCPU < 10"
+			$priority=0
 		fi
+		renice -n $priority -p $firstPid
 	else
 		break
 	fi
+	sleep 1
 done
