@@ -7,9 +7,10 @@ do
 		#hours=$(date +%-H)
 		minutes=$(date +%-M)
 		#seconds=$(date +%-S)
-		if [[ $($minutes % 5) -eq 0 ]]; then
-			script1.sh
+		if [[ $(($minutes % 5)) -eq 0 ]]; then
+			./script1.sh &
 			echo "GOOD"
+			sleep 60
 		fi
 	fi
 done
