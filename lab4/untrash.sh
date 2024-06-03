@@ -13,8 +13,8 @@ while IFS=' : ' read -r path name || [[ -n $line ]]; do
 	if [[ "$(basename $path)" == "$1" ]]; then
 		echo "Xotite vostanovit $path? (y=yes,n=no)";
 		while true; do
-			read input;
-			echo "$input";
+			read -r input;
+			echo "$input 1";
 			if [[ "$input" == "yes" || "$input" == "y" ]]; then
 				echo "$(dirname "$path")";
 				if [[ ! -e $(dirname "$path") ]]; then
@@ -27,10 +27,10 @@ while IFS=' : ' read -r path name || [[ -n $line ]]; do
 					fi
 					echo "Konflict filov, vvedite novoe Im9 fila: ";
 					read newFName;
-					$path="$(basename $path)/$newFname";
+					$path="$(basename $path)/$newFName";
 				done
-				ln -P "$HOME/name" "$path";
-				rm $path;
+				ln -P "$HOME/.trash/$name" "$path";
+				rm "$HOME/.trash/$name";
 				break;
 			fi
 			if [[ "$input" == "no" || "$input" == "n" ]]; then
